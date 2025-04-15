@@ -1,0 +1,16 @@
+const express = require('express')
+const router = express.Router()
+const { login, signup } = require('../controllers/authController')
+const { createTask, updateTasks, Alltasks, employeeTaskUpdate, employees, managerTasks, employeeTasks } = require("../controllers/tasksController")
+const passport = require('passport')
+router.post('/login', login)
+router.post('/signup', signup)
+router.post('/create', passport.authenticate('jwt', { session: false }), createTask)
+router.put('/update/:id', updateTasks)
+router.get('/tasks', Alltasks)
+router.patch('/updateEmpTask/:id', employeeTaskUpdate)
+router.get("/employees", employees)
+router.get("/managerTasks/:id", managerTasks)
+router.get("/employeeTasks/:assignedTo", employeeTasks)
+
+module.exports = router
